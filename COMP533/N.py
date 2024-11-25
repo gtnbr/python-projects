@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
 import statistics
 
+# Modified Collatz Conjecture
 def not_collatz(n):
     my_ans = ["red", 0]
     my_list = [n]
@@ -19,8 +20,9 @@ def not_collatz(n):
     my_ans[1] = len(my_list)
     return my_ans
 
+# Create X values
 x = range(1,1000001)
-all_lengths = []
+# Create red and blue dictionaries to store x and respective y values.
 red_lengths = {}
 blue_lengths = {}
 for i in range (1, 1000001):
@@ -31,29 +33,25 @@ for i in range (1, 1000001):
     if my_ans[0] == "blue":
         blue_lengths[i] = my_ans[1]
 
+plt.figure(figsize=(12, 8))
 
-# Create the plot with a larger figure size
-plt.figure(figsize=(12, 8))  # Increased figure size for better readability
-
-# Scatter plot and horizontal lines
+# Scatter plot for both blue and red values
 plt.scatter(blue_lengths.keys(), blue_lengths.values(), color="#0000ff", s=0.1, label = "Paths to 1")
 plt.scatter(red_lengths.keys(), red_lengths.values(), color="#ff0000", s=0.1, label = "Paths that loop")
 
 plt.xlim(0, max(x))
-plt.ylim(0, max(all_lengths))
+plt.ylim(0, max(max(red_lengths.values()), max(blue_lengths.values())))
 
-# Customize the axes
+# Axis labels
 plt.xlabel("Starting Number", fontsize=14)
 plt.ylabel("Modified Collatz Sequence Length", fontsize=14)
 plt.title(r"Modified Collatz $(3n-1)$ Lengths from 1 to 1,000,000", fontsize=16)
 
-# Remove scientific notation from x-axis
+# Axis scales
 plt.ticklabel_format(style='plain', axis='x')
 plt.xticks(fontsize=12)
 plt.yticks(fontsize=12)
 
-# Show the legend
 plt.legend(fontsize=12)
 
-# Display the plot
 plt.show()
